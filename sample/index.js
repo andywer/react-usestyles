@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom"
 import { ThemeContext } from "theming"
-import { useStyles } from "../lib/index"
+import { useGlobalStyles, useStyles } from "../lib/index"
 import { JssProvider } from "../lib/jss"
 
 const themeDark = {
+  body: {
+    background: "#404040"
+  },
   button: {
     default: {
       background: "#303030",
@@ -18,6 +21,9 @@ const themeDark = {
 }
 
 const themeLight = {
+  body: {
+    background: "#ffffff"
+  },
   button: {
     default: {
       background: "#ffffff",
@@ -28,6 +34,22 @@ const themeLight = {
       textColor: "#ffffff"
     }
   }
+}
+
+function GlobalStyles () {
+  useGlobalStyles(theme => ({
+    "body": {
+      margin: 0,
+      padding: 0,
+      background: theme.body.background
+    },
+    "#app": {
+      width: "100%",
+      height: "100%",
+      minHeight: "100vh"
+    }
+  }))
+  return null
 }
 
 function Button (props) {
@@ -91,6 +113,7 @@ function App () {
     <JssProvider>
       <ThemeContext.Provider value={themeName === "light" ? themeLight : themeDark}>
         <FullSizeContainer css={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <GlobalStyles />
           <StrangeButton>
             Strange button
           </StrangeButton>
