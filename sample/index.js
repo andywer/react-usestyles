@@ -1,3 +1,4 @@
+import { SheetsRegistry } from "jss"
 import React, { useState } from "react"
 import ReactDOM from "react-dom"
 import { ThemeContext } from "theming"
@@ -6,7 +7,7 @@ import { JssProvider } from "../lib/jss"
 
 const themeDark = {
   body: {
-    background: "#404040"
+    background: "#505050"
   },
   button: {
     default: {
@@ -41,7 +42,8 @@ function GlobalStyles () {
     "body": {
       margin: 0,
       padding: 0,
-      background: theme.body.background
+      background: theme.body.background,
+      transition: "background .2s"
     },
     "#app": {
       width: "100%",
@@ -64,6 +66,10 @@ function Button (props) {
       fontSize: 14,
       "&:hover": {
         boxShadow: "0 0 0.5em #e0e0e0"
+      },
+      "&:focus": {
+        boxShadow: "0 0 0.5em #e0e0e0",
+        outline: "none"
       }
     }
   }))
@@ -110,7 +116,7 @@ function App () {
   const [themeName, setActiveTheme] = useState("light")
   const toggleTheme = () => setActiveTheme(themeName === "light" ? "dark" : "light")
   return (
-    <JssProvider>
+    <JssProvider registry={window.registry}>
       <ThemeContext.Provider value={themeName === "light" ? themeLight : themeDark}>
         <FullSizeContainer css={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <GlobalStyles />
@@ -129,4 +135,8 @@ function App () {
   )
 }
 
+window.registry = new SheetsRegistry()
+
 ReactDOM.render(<App />, document.getElementById("app"))
+
+console.log("Aggregated styles for SSR:\n", window.registry.toString())
