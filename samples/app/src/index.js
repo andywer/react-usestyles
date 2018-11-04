@@ -1,9 +1,7 @@
-import { SheetsRegistry } from "jss"
+import { useGlobalStyles, useStyles, ThemeContext } from "@andywer/style-hook"
+import { JssProvider, SheetsRegistry } from "@andywer/style-api-jss"
 import React, { useState } from "react"
 import ReactDOM from "react-dom"
-import { ThemeContext } from "theming"
-import { useGlobalStyles, useStyles } from "../lib/index"
-import { JssProvider } from "../lib/jss"
 
 const themeDark = {
   body: {

@@ -1,7 +1,9 @@
-import React, { useState } from "react"
+import { CssInJsProvider } from "@andywer/style-api"
 import { create, SheetsManager, SheetsRegistry } from "jss"
 import defaultPreset from "jss-preset-default"
-import { CssInJsProvider } from "./unified-cssinjs"
+import React, { useState } from "react"
+
+export { SheetsRegistry }
 
 /**
  * Depending on sheetOptions.restyleOnPropChange & sheetOptions.restyleOnThemeChange,

@@ -1,0 +1,15 @@
+{
+  "name": "@andywer/style-api-jss",
+  "version": "0.0.0",
+  "author": "Andy Wermke (https://github.com/andywer)",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "@andywer/style-api": "0.x",
+    "react": ">= 16.7.0 || >= 16.7.0-alpha.0"
+  },
+  "dependencies": {
+    "jss": "^9.8.7",
+    "jss-preset-default": "^4.5.0"
+  }
+}

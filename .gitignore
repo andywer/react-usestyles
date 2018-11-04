@@ -1,5 +1,6 @@
 .cache/
-dist/*
+dist/
+lib/
 node_modules/
 .DS_Store
 Thumbs.db

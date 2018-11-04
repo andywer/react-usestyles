@@ -1,6 +1,8 @@
+import { CssInJsContext } from "@andywer/style-api"
 import { useContext, useMemo, useMutationEffect, useState } from "react"
 import { ThemeContext } from "theming"
-import { CssInJsContext } from "./unified-cssinjs"
+
+export { ThemeContext }
 
 function useStylesInternal (stylesOrCallback, props) {
   const cssInJs = useContext(CssInJsContext)
