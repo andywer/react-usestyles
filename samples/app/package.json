@@ -1,13 +1,13 @@
 {
   "name": "sample-app",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "parcel serve src/index.html"
   },
   "dependencies": {
-    "@andywer/style-api-jss": "^0.0.0",
-    "@andywer/style-hook": "^0.0.0",
+    "@andywer/style-api-jss": "^0.1.0",
+    "@andywer/style-hook": "^0.1.0",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0"
   },

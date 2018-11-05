@@ -1,6 +1,6 @@
 {
   "name": "@andywer/style-api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Andy Wermke (https://github.com/andywer)",
   "license": "MIT",
   "main": "lib/index.js",
