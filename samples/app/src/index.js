@@ -36,11 +36,11 @@ const themeLight = {
 }
 
 function GlobalStyles () {
-  useGlobalStyles(theme => ({
+  useGlobalStyles({
     "body": {
       margin: 0,
       padding: 0,
-      background: theme.body.background,
+      background: theme => theme.body.background,
       transition: "background .2s"
     },
     "#app": {
@@ -48,16 +48,16 @@ function GlobalStyles () {
       height: "100%",
       minHeight: "100vh"
     }
-  }))
+  }, [])
   return null
 }
 
 function Button (props) {
-  const classNames = useStyles(theme => ({
+  const classNames = useStyles({
     button: {
       padding: "0.6em 1.2em",
-      background: props.primary ? theme.button.primary.background : theme.button.default.background,
-      color: props.primary ? theme.button.primary.textColor : theme.button.default.textColor,
+      background: theme => props.primary ? theme.button.primary.background : theme.button.default.background,
+      color: theme => props.primary ? theme.button.primary.textColor : theme.button.default.textColor,
       cursor: "pointer",
       border: "none",
       boxShadow: "0 0 0.5em #b0b0b0",
@@ -70,7 +70,8 @@ function Button (props) {
         outline: "none"
       }
     }
-  }))
+  }, [props.primary])
+
   return (
     <button className={[classNames.button, props.className || ""].join(" ")} onClick={props.onClick}>
       {props.children}
@@ -93,8 +94,8 @@ function StrangeButton (props) {
 
 function Container (props) {
   const classNames = useStyles({
-    container: props.css
-  })
+    container: () => props.css
+  }, [props.css])
   return (
     <div className={classNames.container}>
       {props.children}

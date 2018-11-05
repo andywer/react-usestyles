@@ -4,7 +4,7 @@ import { ThemeContext } from "theming"
 
 export { ThemeContext }
 
-function useStylesInternal (stylesOrCallback, props) {
+function useStylesInternal (styles, inputs) {
   const cssInJs = useContext(CssInJsContext)
   const theme = useContext(ThemeContext) || {}
 
@@ -16,16 +16,7 @@ function useStylesInternal (stylesOrCallback, props) {
     theme._id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
   }
 
-  const sheetOptions = {
-    restyleOnPropChange: typeof stylesOrCallback === "function" && stylesOrCallback.length >= 2,
-    restyleOnThemeChange: typeof stylesOrCallback === "function" && stylesOrCallback.length >= 1
-  }
-
-  const styles = typeof stylesOrCallback === "function"
-    ? stylesOrCallback(theme, props)
-    : stylesOrCallback
-
-  const [sheet] = useState(() => cssInJs.createSheet(styles, theme._id, sheetOptions))
+  const [sheet] = useState(() => cssInJs.createSheet(styles, theme._id, theme, inputs))
 
   useMutationEffect(() => {
     sheet.attach()
@@ -35,9 +26,9 @@ function useStylesInternal (stylesOrCallback, props) {
   // Misusing useMemo here to synchronously sheet.update() only if styles or theme changed
   useMemo(() => {
     if (sheet.attached) {
-      sheet.update(styles)
+      sheet.update(styles, theme)
     }
-  }, [JSON.stringify(styles), theme])
+  }, inputs ? [theme, ...inputs] : [theme, Math.random()])
 
   return sheet.getClassNames()
 }
@@ -65,14 +56,14 @@ function wrapStyleCallback (styleCallback, transformStyles) {
   }
 }
 
-export function useStyles (stylesOrCallback, props = {}) {
-  return useStylesInternal(stylesOrCallback, props)
+export function useStyles (stylesOrCallback, inputs = undefined) {
+  return useStylesInternal(stylesOrCallback, inputs)
 }
 
-export function useGlobalStyles (stylesOrCallback, props = {}) {
+export function useGlobalStyles (stylesOrCallback, inputs = undefined) {
   stylesOrCallback = typeof stylesOrCallback === "function"
     ? wrapStyleCallback(stylesOrCallback, transformIntoGlobalStyles)
     : transformIntoGlobalStyles(stylesOrCallback)
 
-  useStylesInternal(stylesOrCallback, props)
+  useStylesInternal(stylesOrCallback, inputs)
 }
