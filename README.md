@@ -3,10 +3,9 @@
 Styling components using the newly introduced React hooks for fun and profit.
 
 The hook does not only provide a clean and simple way to style components, but it is going one step further here:
-
 Providing a unified styling hook that can work with any CSS-in-JS library out of the box!
 
-##### Features
+#### Features
 
 * Style components with `useStyles()`
 * Single hook that works with JSS, emotion, styled components, ...
@@ -14,9 +13,9 @@ Providing a unified styling hook that can work with any CSS-in-JS library out of
 * Theming support out of the box
 * Apply global styles using `useGlobalStyles()`
 
-Status: ⚠️ Experimental
-
 **Feedback very welcome! Open an issue or 🌟 the repo.**
+
+⚠️ Experimental implementation
 
 
 ## Installation
