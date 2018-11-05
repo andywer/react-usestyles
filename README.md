@@ -1,21 +1,21 @@
 # Unified React styling hook
 
-Styling components using the newly introduced React hooks for fun and profit.
+Style your components using [React hooks](https://reactjs.org/docs/hooks-intro.html) for fun and profit.
 
-The hook does not only provide a clean and simple way to style components, but it is going one step further here:
-Providing a unified styling hook that can work with any CSS-in-JS library out of the box!
+Using a hook is not only a clean and elegant way to style components, but this one is taking CSS in React one big step further:
+This is a unified styling hook that **is not bound to a particular CSS-in-JS library**, making the choice between Emotion, styled components, JSS or another styling implementation merely an afterthought!
 
 #### Features
 
 * Style components with `useStyles()`
-* Single hook that works with JSS, emotion, styled components, ...
+* Single hook that works with JSS, Emotion, styled components, ...
 * Server Side Rendering
 * Theming support out of the box
 * Apply global styles using `useGlobalStyles()`
 
 **Feedback very welcome! Open an issue or 🌟 the repo.**
 
-⚠️ Experimental implementation
+⚠️ Attention: Bleeding edge ahead. Don't use this in production.
 
 
 ## Installation
@@ -23,6 +23,7 @@ Providing a unified styling hook that can work with any CSS-in-JS library out of
 ```sh
 $ npm install react@next react-dom@next @andywer/style-hook @andywer/style-api-jss
 ```
+
 
 ## Usage
 
@@ -37,16 +38,10 @@ export function Button (props) {
   const classNames = useStyles({
     button: {
       padding: "0.6em 1.2em",
-      cursor: "pointer",
       border: "none",
       boxShadow: "0 0 0.5em #b0b0b0",
-      fontSize: 14,
       "&:hover": {
         boxShadow: "0 0 0.5em #e0e0e0"
-      },
-      "&:focus": {
-        boxShadow: "0 0 0.5em #e0e0e0",
-        outline: "none"
       }
     }
   })
@@ -65,34 +60,29 @@ export function Button (props) {
 ```jsx
 // Button.js
 import { useStyles } from "@andywer/style-hook"
+import React from "react"
 
 export function Button (props) {
   const classNames = useStyles({
     button: {
       padding: "0.6em 1.2em",
-      background: theme => (
-        props.primary ? theme.button.primary.background : theme.button.default.background
-      ),
-      color: theme => (
-        props.primary ? theme.button.primary.textColor : theme.button.default.textColor
-      ),
-      cursor: "pointer",
+      background: theme => theme.button.default.background,
+      color: theme => theme.button.default.textColor,
       border: "none",
       boxShadow: "0 0 0.5em #b0b0b0",
-      fontSize: 14,
       "&:hover": {
         boxShadow: "0 0 0.5em #e0e0e0"
-      },
-      "&:focus": {
-        boxShadow: "0 0 0.5em #e0e0e0",
-        outline: "none"
       }
+    },
+    buttonPrimary: {
+      background: theme => theme.button.primary.background,
+      color: theme => theme.button.primary.textColor      
     }
-  }, [props.primary])   // <- the array specifies that the styles only need to be
-                        //    updated if one of the array element values change
+  }, [])
 
+  const className = [classNames.button, props.primary && classNames.buttonPrimary].join(" ")
   return (
-    <button className={classNames.button} onClick={props.onClick}>
+    <button className={className} onClick={props.onClick}>
       {props.children}
     </button>
   )
@@ -106,6 +96,7 @@ ReactDOM.render()
 ```jsx
 // BodyStyles.js
 import { useGlobalStyles } from "@andywer/style-hook"
+import React from "react"
 
 export function BodyStyles (props) {
   useGlobalStyles({
@@ -157,7 +148,7 @@ const App = () => (
 ReactDOM.render(<App />, document.getElementById("app"))
 ```
 
-Note that as of right now, the `JssProvider` that renders the styles using [JSS](https://github.com/cssinjs/react-jss) is the only styling library integration that comes out of the box.
+The `JssProvider` that renders the styles using [JSS](https://github.com/cssinjs/react-jss) has been implemented as a first proof-of-concept styling library integration.
 
 
 ### Server-side rendering
@@ -184,7 +175,9 @@ const appCSS = registry.toString()
 
 ## Samples
 
-Have a look at [./samples/app](./samples/app). You can clone this repository, `yarn install` and `yarn sample:serve` to play around with it.
+Visit this [demo code sandbox](https://codesandbox.io/s/zx4o632n8l) to see it in action and play around with the code.
+
+You can also have a look at [./samples/app](./samples/app). Clone this repository, `yarn install` and `yarn sample:serve` to play around with it.
 
 
 ## License
