@@ -2,8 +2,9 @@
 
 Style your components using [React hooks](https://reactjs.org/docs/hooks-intro.html) for fun and profit.
 
-Using a hook is not only a clean and elegant way to style components, but this one is taking CSS in React one big step further:
-This is a unified styling hook that **is not bound to a particular CSS-in-JS library**, making the choice between Emotion, styled components, JSS or another styling implementation merely an afterthought!
+Using a hook is not only a clean and elegant way to style components, but this one takes CSS in React one big step further:
+
+This is a unified `useStyles()` hook that **is not bound to a particular CSS-in-JS library**, making the choice between Emotion, styled components, JSS or another styling implementation merely an afterthought!
 
 #### Features
 
@@ -55,7 +56,7 @@ export function Button (props) {
 ```
 
 
-### Dynamic styles
+### Dynamic styles & using themes
 
 ```jsx
 // Button.js
@@ -68,7 +69,7 @@ export function Button (props) {
       padding: "0.6em 1.2em",
       background: theme => theme.button.default.background,
       color: theme => theme.button.default.textColor,
-      border: "none",
+      border: () => props.border || "none",
       boxShadow: "0 0 0.5em #b0b0b0",
       "&:hover": {
         boxShadow: "0 0 0.5em #e0e0e0"
@@ -78,7 +79,7 @@ export function Button (props) {
       background: theme => theme.button.primary.background,
       color: theme => theme.button.primary.textColor      
     }
-  }, [])
+  }, [props.border])
 
   const className = [classNames.button, props.primary && classNames.buttonPrimary].join(" ")
   return (
@@ -90,6 +91,12 @@ export function Button (props) {
 
 ReactDOM.render()
 ```
+
+All dynamic style rules (that means all rules in a style object that can potentially change during runtime) **MUST** have function values. Those functions receive the current theme (see `App` below) as argument and return the style rule value.
+
+You might be wondering what the second argument, the array, passed to `useStyles()` is good for. It is an optimization that is common among React hooks: Pass a list of all variables that this style object's dynamic rules depend on.
+
+If such an array is provided, the expensive CSS update will only be performed if one of those listed variables changed. The styles will always be updated if another theme is selected (see `App` below). Pass an empty array to indicate that a style update is only necessary on theme change.
 
 ### Global styles
 
