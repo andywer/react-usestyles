@@ -5,6 +5,7 @@
   "scripts": {
     "build": "lerna exec babel -- src -d lib --root-mode upward",
     "watch": "lerna exec babel -- src -d lib --root-mode upward --watch",
+    "release": "yarn build && lerna publish",
     "sample:serve": "cd samples/app/ && yarn dev"
   },
   "workspaces": [

@@ -11,5 +11,8 @@
   "dependencies": {
     "jss": "^9.8.7",
     "jss-preset-default": "^4.5.0"
-  }
+  },
+  "files": [
+    "lib/**"
+  ]
 }
