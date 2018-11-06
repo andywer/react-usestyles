@@ -4,6 +4,7 @@
   "author": "Andy Wermke (https://github.com/andywer)",
   "main": "lib/index.js",
   "license": "MIT",
+  "repository": "andywer/react-usestyles",
   "peerDependencies": {
     "@andywer/style-api": "0.x",
     "react": ">= 16.7.0 || >= 16.7.0-alpha.0"
