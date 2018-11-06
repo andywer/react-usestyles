@@ -13,15 +13,25 @@ This is a unified `useStyles()` hook that **is not bound to a particular CSS-in-
 🌅 Server side rendering<br />
 🌈 Theming support out of the box<br />
 
+<br />
+
 **Feedback very welcome! Open an issue or 🌟 the repo.**
 
-⚠️ Attention: Bleeding edge ahead. Don't use this in production.
+⚠️&nbsp;&nbsp;Attention: Bleeding edge ahead. Don't use this in production.
 
 
 ## Installation
 
+In your app:
+
 ```sh
 $ npm install react@next react-dom@next @andywer/style-hook @andywer/style-api-jss
+```
+
+In a component package you only need this:
+
+```sh
+$ npm install react@next @andywer/style-hook
 ```
 
 
