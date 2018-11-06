@@ -37,7 +37,7 @@ $ npm install react@next @andywer/style-hook
 
 ## Usage
 
-### Basic
+### Basic `useStyles()`
 
 ```jsx
 // Button.js
@@ -58,6 +58,33 @@ export function Button (props) {
 
   return (
     <button className={classNames.button} onClick={props.onClick}>
+      {props.children}
+    </button>
+  )
+}
+```
+
+
+### Basic `useStyle()`
+
+This is a convenience function for when you just need to define one CSS class. This is a very frequent use case.
+
+```jsx
+// Button.js
+import { useStyle } from "@andywer/style-hook"
+import React from "react"
+
+export function Button (props) {
+  const className = useStyle({
+    padding:   "0.6em 1.2em",
+    border:    "none",
+    boxShadow: "0 0 0.5em #b0b0b0",
+    "&:hover": {
+      boxShadow: "0 0 0.5em #e0e0e0"
+    }
+  })
+  return (
+    <button className={className} onClick={props.onClick}>
       {props.children}
     </button>
   )
@@ -86,7 +113,7 @@ export function Button (props) {
     },
     buttonPrimary: {
       background: theme => theme.button.primary.background,
-      color:      theme => theme.button.primary.textColor      
+      color:      theme => theme.button.primary.textColor
     }
   }, [props.border])
 

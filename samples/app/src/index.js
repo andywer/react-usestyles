@@ -1,4 +1,4 @@
-import { useGlobalStyles, useStyles, ThemeContext } from "@andywer/style-hook"
+import { useGlobalStyles, useStyle, useStyles, ThemeContext } from "@andywer/style-hook"
 import { JssProvider, SheetsRegistry } from "@andywer/style-api-jss"
 import React, { useState } from "react"
 import ReactDOM from "react-dom"
@@ -54,10 +54,10 @@ function GlobalStyles () {
 
 function Button (props) {
   const classNames = useStyles({
-    button: {
+    default: {
       padding: "0.6em 1.2em",
-      background: theme => props.primary ? theme.button.primary.background : theme.button.default.background,
-      color: theme => props.primary ? theme.button.primary.textColor : theme.button.default.textColor,
+      background: theme => theme.button.default.background,
+      color: theme => theme.button.default.textColor,
       cursor: "pointer",
       border: "none",
       boxShadow: "0 0 0.5em #b0b0b0",
@@ -69,35 +69,38 @@ function Button (props) {
         boxShadow: "0 0 0.5em #e0e0e0",
         outline: "none"
       }
+    },
+    primary: {
+      background: theme => theme.button.primary.background,
+      color: theme => theme.button.primary.textColor
     }
-  }, [props.primary])
+  }, [])
 
+  const className = [
+    classNames.default,
+    props.primary && classNames.primary,
+    props.className || ""
+  ].join(" ")
   return (
-    <button className={[classNames.button, props.className || ""].join(" ")} onClick={props.onClick}>
+    <button className={className} onClick={props.onClick}>
       {props.children}
     </button>
   )
 }
 
 function StrangeButton (props) {
-  const classNames = useStyles({
-    strangeButton: {
-      background: "green"
-    }
-  })
+  const className = useStyle({ background: "green" })
   return (
-    <Button className={classNames.strangeButton}>
+    <Button className={className}>
       {props.children}
     </Button>
   )
 }
 
 function Container (props) {
-  const classNames = useStyles({
-    container: () => props.css
-  }, [props.css])
+  const className = useStyle(() => props.css, [props.css])
   return (
-    <div className={classNames.container}>
+    <div className={className}>
       {props.children}
     </div>
   )

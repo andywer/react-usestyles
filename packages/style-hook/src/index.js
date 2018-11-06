@@ -56,14 +56,15 @@ function wrapStyleCallback (styleCallback, transformStyles) {
   }
 }
 
-export function useStyles (stylesOrCallback, inputs = undefined) {
-  return useStylesInternal(stylesOrCallback, inputs)
+export function useStyles (styles, inputs = undefined) {
+  return useStylesInternal(styles, inputs)
 }
 
-export function useGlobalStyles (stylesOrCallback, inputs = undefined) {
-  stylesOrCallback = typeof stylesOrCallback === "function"
-    ? wrapStyleCallback(stylesOrCallback, transformIntoGlobalStyles)
-    : transformIntoGlobalStyles(stylesOrCallback)
+export function useStyle (style, inputs = undefined) {
+  return useStylesInternal({ style }, inputs).style
+}
 
-  useStylesInternal(stylesOrCallback, inputs)
+export function useGlobalStyles (styles, inputs = undefined) {
+  const transformedStyles = transformIntoGlobalStyles(styles)
+  useStylesInternal(transformedStyles, inputs)
 }
