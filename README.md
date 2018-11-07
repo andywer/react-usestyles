@@ -95,7 +95,10 @@ ReactDOM.render(<App />, document.getElementById("app"))
 
 ## Samples
 
-Visit this [demo code sandbox](https://codesandbox.io/s/zx4o632n8l) to see it in action and play around with the code.
+Open one of those code sandbox samples to see it in action and play around with the code:
+
+- Basics - <https://codesandbox.io/s/zx4o632n8l>
+- Material-UI - <https://codesandbox.io/s/myo47mvjw9>
 
 You can also have a look at [./samples/app](./samples/app). Clone this repository, `yarn install` and `yarn sample:serve` to play around with it.
 
