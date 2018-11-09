@@ -1,10 +1,10 @@
 # Unified React styling hook
 
-Style your components using [React hooks](https://reactjs.org/docs/hooks-intro.html) for fun and profit!
+Leveraging the [React Hooks API](https://reactjs.org/docs/hooks-intro.html) to provide an elegant, unified styling API.
 
-A hook is not only a clean and elegant way to style components, but this one takes CSS in React a big step further:
+One simple API based on the hooks API to style all components. Suddenly it does not matter anymore if you are using Emotion, Styled Components or JSS - the styling becomes transparent.
 
-This is a unified `useStyles()` hook that **is not bound to a particular CSS-in-JS library**, making the choice between Emotion, styled components, JSS or another styling implementation merely an afterthought!
+Great for component libraries: Don't force your users into a particular styling library! Style with universal hooks and let the users plug-in the styling library that works best for them.
 
 #### Features
 
