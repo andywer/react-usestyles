@@ -58,7 +58,7 @@ export function Button (props) {
       background: theme => theme.button.primary.background,
       color:      theme => theme.button.primary.textColor
     }
-  })
+  }, Button)
 
   const className = `${classNames.button} ${props.primary ? classNames.buttonPrimary : ""}`
   return (

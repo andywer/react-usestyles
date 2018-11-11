@@ -31,7 +31,7 @@ export function Button (props) {
         boxShadow: "0 0 0.5em #e0e0e0"
       }
     }
-  })
+  }, Button)
 
   return (
     <button className={classNames.button} onClick={props.onClick}>
@@ -73,7 +73,7 @@ export function Button (props) {
     "&:hover": {
       boxShadow: "0 0 0.5em #e0e0e0"
     }
-  })
+  }, Button)
   return (
     <button className={className} onClick={props.onClick}>
       {props.children}
@@ -106,7 +106,7 @@ export function Button (props) {
       background: theme => theme.button.primary.background,
       color:      theme => theme.button.primary.textColor
     }
-  }, [props.border])
+  }, Button, [props.border])
 
   const className = [classNames.button, props.primary && classNames.buttonPrimary].join(" ")
   return (
@@ -142,7 +142,7 @@ export function BodyStyles (props) {
       height:    "100%",
       minHeight: "100vh"
     }
-  }, [])
+  }, BodyStyles, [])
   return props.children || null
 }
 ```
