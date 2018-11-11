@@ -70,17 +70,17 @@ export function Button (props) {
 ```
 
 Rendering your app with style hook support is easy:
+Add a provider for the styling library at the top of your app.
 
 ```jsx
 // App.js
 import { JssProvider } from "@andywer/style-api-jss"
 import React from "react"
 import ReactDOM from "react-dom"
-import Button from "./Button"
 
 const App = () => (
   <JssProvider>
-    <Button>Click me!</Button>
+    {/* ... */}
   </JssProvider>
 )
 
