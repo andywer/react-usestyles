@@ -15,7 +15,7 @@ Great for component libraries: Don't force your users into a particular styling 
 
 <br />
 
-**Feedback very welcome! Open an issue or 🌟 the repo.**
+**Any feedback welcome! Leave [a comment](https://github.com/andywer/react-usestyles/issues/2) or 🌟 the repo.**
 
 ⚠️&nbsp;&nbsp;Attention: Bleeding edge ahead. Don't use this in production.
 
