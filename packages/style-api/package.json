@@ -5,6 +5,11 @@
   "license": "MIT",
   "main": "lib/index.js",
   "repository": "andywer/react-usestyles",
+  "scripts": {
+    "build": "babel src/ -d lib/ --root-mode upward",
+    "prepare": "build",
+    "watch": "yarn build -- --watch"
+  },
   "peerDependencies": {
     "react": ">= 16.7.0 || >= 16.7.0-alpha.0"
   },
