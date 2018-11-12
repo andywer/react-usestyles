@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "lerna exec babel -- src -d lib --root-mode upward",
-    "watch": "lerna exec babel -- src -d lib --root-mode upward --watch",
+    "build": "lerna run build",
+    "watch": "lerna run watch",
     "release": "yarn build && lerna publish",
     "sample:serve": "cd samples/app/ && yarn dev"
   },
