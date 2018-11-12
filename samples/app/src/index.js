@@ -48,7 +48,7 @@ function GlobalStyles () {
       height: "100%",
       minHeight: "100vh"
     }
-  }, [])
+  }, GlobalStyles, [])
   return null
 }
 
@@ -74,7 +74,7 @@ function Button (props) {
       background: theme => theme.button.primary.background,
       color: theme => theme.button.primary.textColor
     }
-  }, [])
+  }, Button, [])
 
   const className = [
     classNames.default,
@@ -89,7 +89,9 @@ function Button (props) {
 }
 
 function StrangeButton (props) {
-  const className = useStyle({ background: "green" })
+  const className = useStyle({
+    background: "green"
+  }, StrangeButton)
   return (
     <Button className={className}>
       {props.children}
@@ -98,7 +100,7 @@ function StrangeButton (props) {
 }
 
 function Container (props) {
-  const className = useStyle(() => props.css, [props.css])
+  const className = useStyle(() => props.css, Container, [props.css])
   return (
     <div className={className}>
       {props.children}
