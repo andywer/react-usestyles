@@ -35,6 +35,14 @@ $ npm install react@next @andywer/style-hook
 ```
 
 
+## Live Playgrounds
+
+Here are some code sandboxes to see the style hooks in action. You can also see the source code and live-edit it:
+
+😸 Basics - <https://codesandbox.io/s/zx4o632n8l><br />
+🖥 Material-UI / Simple Hacker News client - <https://codesandbox.io/s/myo47mvjw9><br />
+
+
 ## Usage
 
 ```jsx
@@ -93,17 +101,7 @@ ReactDOM.render(<App />, document.getElementById("app"))
 **For more details about the API and usage instructions, check out the [`style-hook` package readme](./packages/style-hook/README.md).**
 
 
-## Samples
-
-Open one of those code sandbox samples to see it in action and play around with the code:
-
-- Basics - <https://codesandbox.io/s/zx4o632n8l>
-- Material-UI - <https://codesandbox.io/s/myo47mvjw9>
-
-You can also have a look at [./samples/app](./samples/app). Clone this repository, `yarn install` and `yarn sample:serve` to play around with it.
-
-
-## Packages
+## API
 
 - [`style-hook`](./packages/style-hook) - The main package providing the hooks
 - [`style-api`](./packages/style-api) - Defines the API between styling library provider and hooks (internal)
