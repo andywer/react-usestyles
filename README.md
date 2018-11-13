@@ -45,6 +45,8 @@ Here are some code sandboxes to see the style hooks in action. You can also see 
 
 ## Usage
 
+### `useStyles()`
+
 ```jsx
 // Button.js
 import { useStyles } from "@andywer/style-hook"
@@ -94,6 +96,64 @@ const App = () => (
 
 ReactDOM.render(<App />, document.getElementById("app"))
 ```
+
+### `useStyle()`
+
+This is a convenience function to define a single CSS class.
+
+```jsx
+import { useStyle } from "@andywer/style-hook"
+import React from "react"
+
+export function Button (props) {
+  const className = useStyle({
+    padding:   "0.6em 1.2em",
+    boxShadow: "0 0 0.5em #b0b0b0",
+    "&:hover": {
+      boxShadow: "0 0 0.5em #e0e0e0"
+    }
+  })
+  return (
+    <button className={className} onClick={props.onClick}>
+      {props.children}
+    </button>
+  )
+}
+```
+
+### Theming & props
+
+```jsx
+import { useStyles } from "@andywer/style-hook"
+import React from "react"
+
+export function Button (props) {
+  const classNames = useStyles({
+    button: {
+      background: theme => theme.button.default.background,
+      color:      theme => theme.button.default.textColor,
+      border:     () => props.border || "none",
+      boxShadow:  "0 0 0.5em #b0b0b0",
+      "&:hover": {
+        boxShadow: "0 0 0.5em #e0e0e0"
+      }
+    },
+    buttonPrimary: {
+      background: theme => theme.button.primary.background,
+      color:      theme => theme.button.primary.textColor
+    }
+  }, [props.border])
+
+  const className = `${classNames.button} ${props.primary ? classNames.buttonPrimary : ""}`
+  return (
+    <button className={className} onClick={props.onClick}>
+      {props.children}
+    </button>
+  )
+}
+```
+
+For details see the [`style-hook` package readme](https://github.com/andywer/react-usestyles/blob/master/packages/style-hook/README.md).
 
 
 ## Details
