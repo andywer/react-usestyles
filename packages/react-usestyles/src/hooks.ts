@@ -18,6 +18,20 @@ export interface StylingHooks {
   useStyles<ClassNames extends string>(styles: StyleClasses<ClassNames>, selectors: any[]): { [key in ClassNames]: string }
 }
 
+function useCSSEffect(fn: () => void, selectors?: any[]) {
+  // Not using React.useLayoutEffect, since it would not be executed in SSR
+  if (selectors) {
+    React.useMemo(fn, selectors)
+  } else {
+    fn()
+  }
+}
+
+function useMountEffect(fn: () => (() => void) | void) {
+  // TODO: Should it be React.useLayoutEffect() if not in SSR?
+  React.useEffect(fn, [])
+}
+
 function createUseCSS(firstInjectionPosition: number): StylingHooks["useCSS"] {
   let nextInjectionPosition = firstInjectionPosition
   let stylesheet: GeneratedStylesheet
@@ -37,7 +51,7 @@ function createUseCSS(firstInjectionPosition: number): StylingHooks["useCSS"] {
     // Array of [className, styles]
     let currentRenderingCssCalls: { [className: string]: Styles } = {}
 
-    React.useLayoutEffect(() => {
+    useCSSEffect(() => {
       stylesheet.update(currentRenderingCssCalls)
 
       if (!stylesheet.isAttached) {
@@ -50,7 +64,7 @@ function createUseCSS(firstInjectionPosition: number): StylingHooks["useCSS"] {
       currentRenderingCssCalls = Object.create(null)
     })
 
-    React.useLayoutEffect(() => {
+    useMountEffect(() => {
       stylesheetReferences++
 
       return () => {
@@ -58,7 +72,7 @@ function createUseCSS(firstInjectionPosition: number): StylingHooks["useCSS"] {
           stylesheet.detach()
         }
       }
-    }, [])
+    })
 
     return function css(styles: Styles): string {
       // Quick & dirty way to match useCSS() calls to previous calls
@@ -95,7 +109,7 @@ function createUseStyles(firstInjectionPosition: number): Pick<StylingHooks, "us
       stylesheet.addClass(className, className, createCssClass(1, styles[className]))
     }
 
-    React.useLayoutEffect(() => {
+    useCSSEffect(() => {
       if (!stylesheet.isAttached) {
         // Initial call
         stylesheet.attach()
@@ -104,12 +118,12 @@ function createUseStyles(firstInjectionPosition: number): Pick<StylingHooks, "us
       }
     }, selectors)
 
-    React.useLayoutEffect(() => {
+    useMountEffect(() => {
       return () => {
         stylesheet.detach()
         stylesheet.destroy()
       }
-    }, [])
+    })
   }
 
   function useStyles<ClassNames extends string>(
@@ -124,7 +138,7 @@ function createUseStyles(firstInjectionPosition: number): Pick<StylingHooks, "us
       []
     )
 
-    React.useLayoutEffect(() => {
+    useCSSEffect(() => {
       if (!stylesheet.isAttached) {
         // Initial call
         for (const className in styles) {
@@ -137,12 +151,12 @@ function createUseStyles(firstInjectionPosition: number): Pick<StylingHooks, "us
       }
     }, selectors)
 
-    React.useLayoutEffect(() => {
+    useMountEffect(() => {
       return () => {
         stylesheet.detach()
         stylesheet.destroy()
       }
-    }, [])
+    })
 
     // FIXME: Will return wrong class names if classes change during runtime
     return stylesheet.rewrittenClassNames
