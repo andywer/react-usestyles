@@ -1,0 +1,35 @@
+{
+  "name": "react-usestyles",
+  "version": "0.0.0",
+  "description": "Style components using React hooks. Works with different styling libraries.",
+  "author": "Andy Wermke (https://github.com/andywer)",
+  "license": "MIT",
+  "repository": "andywer/react-usestyles",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist/",
+    "build": "tsc",
+    "prepare": "run-s build"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8"
+  },
+  "devDependencies": {
+    "@types/nanoid": "^2.0.0",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@emotion/cache": "^10.0.14",
+    "@emotion/serialize": "^0.11.9",
+    "@emotion/utils": "^0.11.2",
+    "nanoid": "^2.0.3"
+  }
+}
