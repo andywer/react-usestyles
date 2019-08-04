@@ -32,6 +32,7 @@
   "dependencies": {
     "@emotion/cache": "^10.0.14",
     "@emotion/serialize": "^0.11.9",
+    "@emotion/stylis": "^0.8.4",
     "@emotion/utils": "^0.11.2",
     "nanoid": "^2.0.3"
   }

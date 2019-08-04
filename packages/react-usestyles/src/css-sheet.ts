@@ -1,7 +1,9 @@
+import Stylis from "@emotion/stylis"
 import { createCssClass, GeneratedCssClass } from "./css-class"
 import { Styles } from "./styles"
 
 const $generateClassName = Symbol("generateClassName")
+const stylis = new Stylis()
 
 export interface GeneratedStylesheet<ClassNames extends string = string> {
   /** Maps `originalClassName` => `generatedClassName` */
@@ -25,11 +27,13 @@ export interface GeneratedStylesheet<ClassNames extends string = string> {
   [$generateClassName](originalClassName: string): string
 }
 
-function insertRule(styleTag: HTMLStyleElement, sheet: CSSStyleSheet, content: string): number {
+function insertRule(styleTag: HTMLStyleElement, sheet: CSSStyleSheet, className: string, content: string): number {
+  const css = stylis("." + className, content) + "\n"
+
   if (typeof process !== "undefined" && process.env && process.env.NODE_ENV === "production") {
-    return sheet.insertRule(content)
+    return sheet.insertRule(css)
   } else {
-    styleTag.appendChild(document.createTextNode(content))
+    styleTag.appendChild(document.createTextNode(css))
     return styleTag.childNodes.length - 1
   }
 }
@@ -55,7 +59,7 @@ const StylesheetPrototype: Pick<GeneratedStylesheet<string>, "attach" | "destroy
       for (const className of this.classNames) {
         const cssClass = this.classes[className]
         const rewrittenClassName = this.rewrittenClassNames[className]
-        this.classRuleIndexes[className] = insertRule(this.styleElement, sheet, `.${rewrittenClassName}{${cssClass.css}}\n`)
+        this.classRuleIndexes[className] = insertRule(this.styleElement, sheet, rewrittenClassName, cssClass.css)
       }
     }
   },
@@ -77,7 +81,7 @@ const StylesheetPrototype: Pick<GeneratedStylesheet<string>, "attach" | "destroy
     this.classNames.add(originalClassName)
 
     if (sheet) {
-      this.classRuleIndexes[originalClassName] = insertRule(this.styleElement, sheet, `.${rewrittenClassName}{${cssClass.css}}\n`)
+      this.classRuleIndexes[originalClassName] = insertRule(this.styleElement, sheet, rewrittenClassName, cssClass.css)
     }
   },
   removeClass(this: GeneratedStylesheet<string>, originalClassName: string) {
@@ -121,7 +125,6 @@ const StylesheetPrototype: Pick<GeneratedStylesheet<string>, "attach" | "destroy
       const cssClass = createCssClass(1, updatedStyles[className])
 
       if (cssClass.fingerprint !== this.classes[className].fingerprint) {
-console.log(">>", className)
         const generatedClassName = this.rewrittenClassNames[className]
         this.removeClass(className)
         this.addClass(className, generatedClassName, cssClass)
